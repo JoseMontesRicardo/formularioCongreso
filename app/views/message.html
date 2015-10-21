@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block header %}
+	<header class="title-content">
+		<h1 class="title">XlX Congreso</h1>
+		<p class="p-title">Diocesano De Jovenes</p>
+		<figure class="content-logo-pastoral">
+			<img class="logo-pastoral" src="/img/pastoral.png" alt="">
+		</figure>
+	</header>
+{% endblock %}
+
+{% block content %}
+	<section class="content-messge">
+		<h1 class="message">{{ message }}</h1>
+		<h1 class="message-error">{{ messageError }}</h1>
+		<p class="alert">{{ alert }}</p>
+	</section>
+{% endblock %}
