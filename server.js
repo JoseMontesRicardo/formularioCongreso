@@ -3,12 +3,18 @@ var 	express 	= require('express'),
 	server 	= express(),
 	bodyParser 	= require('body-parser'),
 	mysql		= require('mysql'),
-	nodemailer 	= require('nodemailer');
+	nodemailer 	= require('nodemailer'),
+	session  	= require('express-session');
 
 server.use( bodyParser() )
 server.engine('html', swig.renderFile)
 server.set('view engine', 'html')
 server.set('views', './app/views')
+server.use(session({
+   	secret: 'Mojuvi critano',
+   	resave: false,
+   	saveUninitialized : false
+}));
 swig.setDefaults({
 	cache : false
 });
@@ -29,6 +35,14 @@ var transporter = nodemailer.createTransport({
         pass: 'pastoral2015'
     }
 });
+
+var isLoggIn = function ( req, res, next ){
+	if (!req.session.username){
+		res.redirect('/loggin')
+		return
+	}
+	next()
+}
 
 var sendmail = function(mail, nombre){
 	var mailOptions = {
@@ -73,10 +87,34 @@ server.post('/add', function (req, res){
 	//debugger
 })
 
-server.get('/Registrados', function (req, res){
+server.get('/Registrados', isLoggIn, function (req, res){
 	conn.query('select * from registrados', function (error, rows, fields){
 		res.render('users', {array: rows})
 	})
+})
+
+server.post('/Inloggin', function (req, res){
+	conn.query('select * from users where (usuario = "'+req.body.Correo+'" && pass = "'+req.body.Pass+'")', function (error, rows, fields){
+	if ( error ){
+		//res.redirect('/loggin')
+		res.send('error'+error)
+	} else if ( rows[0] === undefined ) {
+		res.redirect('/loggin')
+	} else {
+		req.session.username = rows[0].usuario
+		req.session.password = rows[0].pass
+		res.redirect('/Registrados')
+	}
+	})
+})
+
+server.get('/loggout', function (req, res){
+	req.session.destroy()
+	res.redirect('/loggin')
+})
+
+server.get('/loggin', function (req, res){
+	res.render('loggin')
 })
 
 server.use(function(req, res){

@@ -10,36 +10,23 @@
 	</header>
 {% endblock %}
 
-{% block content %}
-	<section class="content-table">
-		<h2 class="title-registrados">Personas Registradas</h2>
-		<table class="table">
-		<tr class="fill-header">
-			<td>Nombres</td>
-			<td>Apellidos</td>
-			<td>Edad</td>
-			<td>Telefono</td>
-			<td>Correo</td>
-			<td>Comunidad</td>
-			<td>Parroquia</td>
-			<td>Mojuvi</td>
-		</tr>
-		{% for person in array %}
-  			<tr>
-				<td>{{ person.Nombres }}</td>
-				<td>{{ person.Apellidos }}</td>
-				<td>{{ person.Edad }}</td>
-				<td>{{ person.Telefono }}</td>
-				<td>{{ person.Correo }}</td>
-				<td>{{ person.Comunidad }}</td>
-				<td>{{ person.Parroquia }}</td>
-				<td>{{ person.Mojuvi }}</td>
-			</tr>
-		{% endfor %}
-		</table>
-		<h2 class="title-registrados"><a href="/loggout">salir</a></h2>
+
+{% block form %}
+	<section>
+		<figure class="content-logo-diocesis">
+			<img class="logo-diocesis" src="/img/diocesis.png" alt="">
+		</figure>
+		<article class="content-loggin">
+			<p class="form-title" >Loggin</p>
+			<form action="Inloggin" class="" method="post">
+				<input class="email" type="email" name="Correo" placeholder="Correo" required>
+				<input class="pass" type="password" name="Pass" placeholder="Contraseña" required>
+				<input class="button-logg" type="submit" value="Entrar">
+			</form>
+		</article>
 	</section>
 {% endblock %}
+
 {% block footer %}
 	<footer>
 		<article  class="content-orgnizadores">
