@@ -88,7 +88,7 @@ server.get('/form', function (req, res){
 })*/
 
 server.get('/Registrados', isLoggIn, function (req, res){
-	conn.query('select * from registrados ORDER BY Nombres ASC', function (error, rows, fields){
+	conn.query('select * from registrados ORDER BY Mojuvi ASC', function (error, rows, fields){
 		res.render('users', {array: rows})
 	})
 })
