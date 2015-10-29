@@ -63,10 +63,10 @@ var sendmail = function(mail, nombre){
 }
 
 server.get('/form', function (req, res){
-	res.render('formRegister')
+	res.render('formDown')
 })
 
-server.post('/add', function (req, res){
+/*server.post('/add', function (req, res){
 	var object = req.body
 	conn.query( "insert into registrados set ?", object, function (error, results){
 		//debugger
@@ -85,7 +85,7 @@ server.post('/add', function (req, res){
 		}//res.render('message',{  user_session: req.session.username, mensaje: 'El Usuario: '+object.var_4+' '+object.var_6+' se agrego Correctamente!!', mensajeError: '' });
 	})
 	//debugger
-})
+})*/
 
 server.get('/Registrados', isLoggIn, function (req, res){
 	conn.query('select * from registrados', function (error, rows, fields){
